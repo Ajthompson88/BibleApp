@@ -6,17 +6,19 @@ import QNA from './pages/QNA';
 
 
 function App() {
-  return (
-    <Router>
+return (
+  <Router>
+    <div className="min-h-screen bg-white text-black dark:bg-gray-900 dark:text-white flex flex-col">
       <Navbar />
-      <div className="p-4">
+      <div className="flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/reading-plan" element={<ReadingPlan />} />
           <Route path="/qna" element={<QNA />} />
         </Routes>
       </div>
-    </Router>
-  );
+    </div>
+  </Router>
+);
 }
 export default App
