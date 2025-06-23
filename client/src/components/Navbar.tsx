@@ -18,8 +18,9 @@ return (
     <div className="flex justify-between items-center">
             <div className="flex space-x-4">
             <Link to="/" className="hover:underline px-2 py-1">Home</Link>
-            <Link to="/reading" className="hover:underline px-2 py-1">Reading Plan</Link>
+            <Link to="/reading-plan" className="hover:underline px-2 py-1">Reading Plan</Link>
             <Link to="/qna" className="hover:underline px-2 py-1">Q & A</Link>
+            <Link to="/about" className="hover:underline px-2 py-1">About</Link>
             </div>
         <button
             onClick={() => setDarkMode(!darkMode)}

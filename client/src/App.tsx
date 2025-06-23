@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import ReadingPlan from './pages/ReadingPlan';
 import QNA from './pages/QNA';
+import About from './pages/About';
 
 
 function App() {
@@ -15,6 +16,7 @@ return (
           <Route path="/" element={<Home />} />
           <Route path="/reading-plan" element={<ReadingPlan />} />
           <Route path="/qna" element={<QNA />} />
+          <Route path="/about" element={<About />} />
         </Routes>
       </div>
     </div>
