@@ -3,16 +3,20 @@ import { useEffect, useState } from 'react';
 
 function Navbar() {
 
-const [darkMode, setDarkMode] = useState(false);
+    const [darkMode, setDarkMode] = useState(() => {
+        const stored = localStorage.getItem('theme');
+        if (stored) return stored === 'dark';
+        // fallback to system preference
+        return window.matchMedia('(prefers-color-scheme: dark)').matches;
+      });
+      
 
-useEffect(() => {
-if (darkMode) {
-document.documentElement.classList.add('dark');
-} else {
-document.documentElement.classList.remove('dark');
-}
-}, [darkMode]);
-
+      useEffect(() => {
+        const theme = darkMode ? 'dark' : 'light';
+        localStorage.setItem('theme', theme);
+        document.documentElement.classList.toggle('dark', darkMode);
+      }, [darkMode]);
+      
 return (
 <nav className="bg-gray-900 text-white p-4">
     <div className="flex justify-between items-center">
