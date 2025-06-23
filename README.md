@@ -1,64 +1,77 @@
-# 📖 **Bible Companion App**
+# 📖 Bible Companion App
 
 A modern, dynamic Bible Companion App built with React + Vite + Tailwind CSS.
 
-This app is being built as a full-stack project to provide believers with a clean, beautiful tool for:
+This full-stack project is designed to provide believers with a clean, beautiful tool for:
 
 ✅ Reading Bible passages  
-✅ Following reading plans  
-✅ Asking Bible questions (QNA)  
+✅ Following daily reading plans  
+✅ Asking Bible questions through an interactive Q&A interface  
 ✅ Switching between Light and Dark mode  
-✅ Learning and exploring Scripture through an interactive UI
+✅ Saving reading progress locally  
+✅ Future support for AI-powered answers (via OpenAI)
 
 ---
 
-## 🚀 **Current Progress**
+## 📑 Table of Contents
 
-As of June 10th:
-
-✅ React + Vite + TypeScript frontend fully set up  
-✅ Tailwind CSS configured cleanly (with correct PostCSS and content paths)  
-✅ React Router set up → basic routing works  
-✅ Navbar built and working  
-✅ Light/Dark mode implemented with toggle button in Navbar  
-✅ Smooth transition for Dark/Light mode  
-✅ Full-screen layout fixed and tested  
-✅ Professional project structure validated
+- [Current Progress & Changelog](#current-progress--changelog)
+- [Planned Features](#planned-features)
+- [Tech Stack](#tech-stack)
+- [Setup & Running the Project](#setup--running-the-project)
+- [Project Structure](#project-structure)
+- [Author](#author)
+- [License](#license)
+- [Acknowledgments](#acknowledgments)
 
 ---
 
-## 🔮 **Planned Features**
+## 📅 Current Progress & Changelog
 
-- Save Light/Dark mode preference in localStorage  
-- Add Bible API integration → display passages dynamically  
-- Add QNA API integration → answer Bible questions using AI  
-- Build Reading Plan Generator  
-- Add user authentication (optional future feature)  
-- Further refine UI/UX and polish styles
+- ✅ **June 9** → Initial project setup (Vite, React, Tailwind, TypeScript)
+- ✅ **June 10** → Tailwind config debugged, full screen layout fixed
+- ✅ **June 10** → Light/Dark mode toggle added with transition
+- ✅ **June 15** → QNA page added with simulated backend + fetch logic + error/loading UI
+- ✅ **June 21** → Reading Plan checkboxes with localStorage state
+- ✅ **June 22** → About page created and routed
+- ✅ **June 23** → Project structure finalized, README updated, root build scripts working
+- 🚧 **Upcoming** → Add OpenAI integration, theme persistence, and Bible API access
 
 ---
 
-## ⚙️ **Tech Stack**
+## 🔮 Planned Features
+
+- OpenAI-powered Bible Q&A  
+- Save theme preference (light/dark) in localStorage  
+- Add Bible passage lookup using API  
+- Verse of the Day widget  
+- Authentication system for user accounts (optional future feature)  
+- Deployment to Vercel or Netlify  
+- PWA/mobile version
+
+---
+
+## ⚙️ Tech Stack
 
 - [React](https://react.dev/) + [Vite](https://vitejs.dev/)  
 - [Tailwind CSS](https://tailwindcss.com/) v3.4.3  
-- [PostCSS](https://postcss.org/) v8.4.27  
-- [Autoprefixer](https://github.com/postcss/autoprefixer) v10.4.16  
-- React Router  
-- Node.js v20.12.2  
-- NPM v10.5.0  
-- NVM-windows used to manage Node versions
+- [React Router](https://reactrouter.com/)  
+- [TypeScript](https://www.typescriptlang.org/)  
+- Node.js + Express server  
+- LocalStorage for persistence  
+- OpenAI API (planned)
 
 ---
 
-## 🏃 **How to Run the Project (Local Development)**
+## Setup & Running the Project
+
 
 1️⃣ Clone the project:
-
-```bash
-    git clone https://github.com/your-username/BibleApp.git
-    cd BibleApp/client
 ```
+    git clone https://github.com/your-username/BibleApp.git
+    cd BibleApp
+```
+
 2️⃣ Install dependencies:
 
 ```bash
@@ -71,29 +84,29 @@ As of June 10th:
 ```
 - App will be available at: http://localhost:5173
 
-🛠️ **Notes and Known Setup Requirements**
 
-✅ This project was tested and works well with:
 
-Node v20.12.2 (recommended — use NVM-windows if needed)
+✅ **This project was tested and works well with**:
 
-NPM v10.x — using NPM 11.x caused npx issues with Tailwind CLI
+- Node v20.12.2 (recommended — use NVM-windows if needed)
 
-Tailwind v3.4.3 → stable and proven with Vite
+- NPM v10.x — using NPM 11.x caused npx issues with Tailwind CLI
 
-Important: 
+- Tailwind v3.4.3 → stable and proven with Vite
 
-Tailwind config
+**Important**: 
 
-darkMode: 'class' is used → app toggles dark class on < html > element
+- Tailwind config
 
-Content array is configured correctly to include all src components + index.html
+- darkMode: 'class' is used → app toggles dark class on < html > element
 
-CSS gotcha fixed:
+- Content array is configured correctly to include all src components + index.html
 
-Vite template had body { display: flex; place-items: center; } → this was removed to allow proper full-screen layout.
+- CSS gotcha fixed:
 
-💻 **Project Structure**
+- Vite template had body { display: flex; place-items: center; } → this was removed to allow proper full-screen layout.
+
+##  **Project Structure**
 
     BibleApp/
     ├── client/
@@ -105,44 +118,43 @@ Vite template had body { display: flex; place-items: center; } → this was remo
     │   │   │   ├── Home.tsx
     │   │   │   ├── ReadingPlan.tsx
     │   │   │   ├── QNA.tsx
+    │   │   │   └── About.tsx
     │   │   ├── App.tsx
     │   │   ├── main.tsx
     │   │   ├── index.css
     │   ├── tailwind.config.js
     │   ├── postcss.config.js
     │   ├── package.json
-    ├── README.md (this file)
+    ├── server/
+    │   ├── src/
+    │   │   ├── index.js
+    │   │   └── routes/
+    │   │       └── qna.js
+    │   ├── package.json
+    ├── package.json (root)
+    ├── README.md
 
 
-🙏 **Author**
+## **Author**
 
-Bible Companion App created by Andrew — Full-stack Developer.
+Bible Companion App created by Andrew — Full-stack Developer
 
 Project started June 9th, 2025 — ongoing.
 
-📅 Changelog (Progress)
-- ✅ June 9 → Initial project setup
+📫 Contact: [Ajthompson88](https://github.com/Ajthompson88)
 
-- ✅ June 10 → Tailwind config debugged and fixed
-
-- ✅ June 10 → Full screen layout fixed
-
-- ✅ June 10 → Light/Dark mode added with toggle and transition
-
-- 🚧 June 11 → Next up → save theme preference, start adding Bible API
-
-🚀 **License**
+## **License**
 
 MIT License.
 
-⭐ **Acknowledgments**
+## **Acknowledgments**
 
-- Tailwind CSS community
+React + Tailwind CSS community
 
-- React + Vite community
+Vite and PostCSS contributors
 
-- Bible API / OpenAI API (to be added soon)
+OpenAI API (integration planned)
 
-- All who are helping test and build this app. 
+Those supporting the app in testing and feedback
 
-To God be the glory. 🙏 ✨ ✞ 
+✝️ To God be the glory!
