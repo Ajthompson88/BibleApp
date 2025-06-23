@@ -1,39 +1,66 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-function Navbar() {
+export default function Navbar() {
+  const [darkMode, setDarkMode] = useState(() => {
+    const stored = localStorage.getItem('theme');
+    if (stored) return stored === 'dark';
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  });
 
-    const [darkMode, setDarkMode] = useState(() => {
-        const stored = localStorage.getItem('theme');
-        if (stored) return stored === 'dark';
-        // fallback to system preference
-        return window.matchMedia('(prefers-color-scheme: dark)').matches;
-      });
-      
+  const location = useLocation();
 
-      useEffect(() => {
-        const theme = darkMode ? 'dark' : 'light';
-        localStorage.setItem('theme', theme);
-        document.documentElement.classList.toggle('dark', darkMode);
-      }, [darkMode]);
-      
-return (
-<nav className="bg-gray-900 text-white p-4">
-    <div className="flex justify-between items-center">
-            <div className="flex space-x-4">
-            <Link to="/" className="hover:underline px-2 py-1">Home</Link>
-            <Link to="/reading-plan" className="hover:underline px-2 py-1">Reading Plan</Link>
-            <Link to="/qna" className="hover:underline px-2 py-1">Q & A</Link>
-            <Link to="/about" className="hover:underline px-2 py-1">About</Link>
-            </div>
+  useEffect(() => {
+    const theme = darkMode ? 'dark' : 'light';
+    localStorage.setItem('theme', theme);
+    document.documentElement.classList.toggle('dark', darkMode);
+  }, [darkMode]);
+
+  return (
+    <nav className="bg-gray-900/80 backdrop-blur-md border-b border-gray-700 text-white px-4 sm:px-6 py-3 fixed w-full z-50">
+      <div className="max-w-7xl mx-auto flex justify-between items-center">
+        <div className="flex space-x-6 text-sm sm:text-base font-medium">
+          <Link
+            to="/"
+            className={`hover:underline ${
+              location.pathname === '/' ? 'text-blue-400 underline' : ''
+            }`}
+          >
+            Home
+          </Link>
+          <Link
+            to="/reading-plan"
+            className={`hover:underline ${
+              location.pathname === '/reading-plan' ? 'text-blue-400 underline' : ''
+            }`}
+          >
+            Reading Plan
+          </Link>
+          <Link
+            to="/qna"
+            className={`hover:underline ${
+              location.pathname === '/qna' ? 'text-blue-400 underline' : ''
+            }`}
+          >
+            Q & A
+          </Link>
+          <Link
+            to="/about"
+            className={`hover:underline ${
+              location.pathname === '/about' ? 'text-blue-400 underline' : ''
+            }`}
+          >
+            About
+          </Link>
+        </div>
+
         <button
-            onClick={() => setDarkMode(!darkMode)}
-            className="ml-4 px-2 py-1 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600 transition-colors duration-300">
-            {darkMode ? 'Light Mode' : 'Dark Mode'}
+          onClick={() => setDarkMode(!darkMode)}
+          className="ml-4 border border-gray-500 text-sm sm:text-base px-3 py-1 rounded-md hover:bg-gray-700 transition"
+        >
+          {darkMode ? 'Light Mode' : 'Dark Mode'}
         </button>
-    </div>
-</nav>
-);
+      </div>
+    </nav>
+  );
 }
-
-export default Navbar;

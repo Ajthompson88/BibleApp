@@ -8,19 +8,19 @@ import About from './pages/About';
 
 function App() {
 return (
-  <Router>
-    <div className="min-h-screen bg-white text-black dark:bg-gray-900 dark:text-white flex flex-col">
-      <Navbar />
-      <div className="flex-grow">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/reading-plan" element={<ReadingPlan />} />
-          <Route path="/qna" element={<QNA />} />
-          <Route path="/about" element={<About />} />
-        </Routes>
-      </div>
+<Router>
+  <div className="min-h-screen bg-white text-black dark:bg-gray-900 dark:text-white flex flex-col">
+    <Navbar />
+    <div className="flex-grow">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/reading-plan" element={<ReadingPlan />} />
+        <Route path="/qna" element={<QNA />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
     </div>
-  </Router>
+  </div>
+</Router>
 );
 }
 export default App

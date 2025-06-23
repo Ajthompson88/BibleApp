@@ -1,5 +1,6 @@
 function About() {
     return (
+      <div className="pt-20">
       <div className="max-w-2xl mx-auto mt-10 px-6 py-8 bg-white dark:bg-gray-800 shadow-md rounded-lg text-gray-900 dark:text-white">
         <h1 className="text-3xl font-bold text-blue-700 dark:text-blue-300 mb-4 text-center">
           About Adon·AI
@@ -14,6 +15,7 @@ function About() {
           “Your word is a lamp to my feet and a light to my path.” — Psalm 119:105
         </p>
       </div>
+    </div>
     );
   }
   
