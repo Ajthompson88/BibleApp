@@ -1,10 +1,24 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import TranslationSelector from '../components/TranslationSelector';
 
-function QNA() {
+export default function QNA() {
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [bibles, setBibles] = useState([]);
+  const [selectedBible, setSelectedBible] = useState('');
+
+  // Fetch available Bibles on load
+  useEffect(() => {
+    fetch('/api/bibles')
+      .then((res) => res.json())
+      .then((data) => {
+        setBibles(data.data);
+        setSelectedBible(data.data?.[0]?.id || '');
+      })
+      .catch((err) => console.error('Failed to load Bible list:', err));
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -14,17 +28,15 @@ function QNA() {
     try {
       const response = await fetch('http://localhost:5000/qna', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ question }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question, bibleId: selectedBible }),
       });
 
       const data = await response.json();
       setAnswer(data.answer);
       setQuestion('');
-    } catch (error) {
-      console.error('Error submitting question:', error);
+    } catch (err) {
+      console.error('Error submitting question:', err);
       setAnswer('An error occurred while getting the answer. Please try again.');
       setError(true);
     } finally {
@@ -33,18 +45,38 @@ function QNA() {
   };
 
   return (
-    <div className="max-w-xl mx-auto px-4 sm:px-6 py-6 sm:py-10 mt-6">
+    <div className="pt-20 max-w-xl mx-auto px-4 sm:px-6">
       <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-blue-700 dark:text-blue-300 text-center">
         AI Bible Q&A
       </h1>
 
+      {/* Bible Translation Dropdown */}
+      <div className="mb-4">
+        <label htmlFor="bible" className="block text-sm font-medium mb-1">
+          Select Bible Translation
+        </label>
+        <select
+          id="bible"
+          value={selectedBible}
+          onChange={(e) => setSelectedBible(e.target.value)}
+          className="w-full border rounded px-3 py-2 text-base bg-white dark:bg-gray-800 dark:text-white"
+        >
+          {bibles.map((bible: any) => (
+            <option key={bible.id} value={bible.id}>
+              {bible.abbreviation} – {bible.name}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Question Form */}
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="text"
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
           placeholder="Ask a question about the Bible..."
-          className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+          className="w-full border rounded-md px-4 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
           required
         />
         <button
@@ -76,5 +108,3 @@ function QNA() {
     </div>
   );
 }
-
-export default QNA;

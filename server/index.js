@@ -4,6 +4,9 @@ require('dotenv').config();
 
 const app = express();
 
+import bibleRoutes from './routes/bible.js';
+app.use('/api', bibleRoutes);
+
 app.use(cors());
 app.use(express.json());
 
