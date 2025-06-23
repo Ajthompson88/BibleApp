@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import TranslationSelector from '../components/TranslationSelector';
 
 export default function QNA() {
@@ -6,19 +6,9 @@ export default function QNA() {
   const [answer, setAnswer] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [bibles, setBibles] = useState([]);
-  const [selectedBible, setSelectedBible] = useState('');
 
-  // Fetch available Bibles on load
-  useEffect(() => {
-    fetch('/api/bibles')
-      .then((res) => res.json())
-      .then((data) => {
-        setBibles(data.data);
-        setSelectedBible(data.data?.[0]?.id || '');
-      })
-      .catch((err) => console.error('Failed to load Bible list:', err));
-  }, []);
+  // ✅ Correct type: store selected Bible ID (string)
+  const [selectedBible, setSelectedBible] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,26 +40,12 @@ export default function QNA() {
         AI Bible Q&A
       </h1>
 
-      {/* Bible Translation Dropdown */}
-      <div className="mb-4">
-        <label htmlFor="bible" className="block text-sm font-medium mb-1">
-          Select Bible Translation
-        </label>
-        <select
-          id="bible"
-          value={selectedBible}
-          onChange={(e) => setSelectedBible(e.target.value)}
-          className="w-full border rounded px-3 py-2 text-base bg-white dark:bg-gray-800 dark:text-white"
-        >
-          {bibles.map((bible: any) => (
-            <option key={bible.id} value={bible.id}>
-              {bible.abbreviation} – {bible.name}
-            </option>
-          ))}
-        </select>
-      </div>
+      {/* ✅ Fixed: pass only what TranslationSelector needs */}
+      <TranslationSelector
+        selectedBible={selectedBible}
+        setSelectedBible={setSelectedBible}
+      />
 
-      {/* Question Form */}
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="text"
