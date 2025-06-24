@@ -21,8 +21,8 @@ export default function VerseLookup() {
       const data = await res.json();
 
       if (res.ok) {
-        setVerse(data.data.content);
-        setDisplayRef(`${data.data.reference} (${data.data.bibleId})`);
+        setVerse(data.text); // use 'text', not 'data.content'
+        setDisplayRef(reference + ` (${selectedBible})`);
       } else {
         setError(data.error || 'Could not find verse');
       }

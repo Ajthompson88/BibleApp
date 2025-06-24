@@ -7,7 +7,7 @@ import bibleRoutes from './routes/bible.js';
 import questionRoutes from './routes/questions.js'; // You'll create this next
 import verseRoutes from './routes/verse.js';
 
-dotenv.config({ path: '../.env' });
+dotenv.config();
 console.log('DEBUG: MONGO_URI is', process.env.MONGO_URI);
 
 const app = express();
@@ -32,7 +32,7 @@ app.get('/', (req, res) => {
 
 app.use('/api', bibleRoutes);
 app.use('/api/questions', questionRoutes);
-app.use('/api', verseRoutes);
+app.use('/api/verse', verseRoutes);
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
