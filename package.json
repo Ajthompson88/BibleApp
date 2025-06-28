@@ -5,18 +5,18 @@
     "main": "index.js",
     "directories": {
         "doc": "docs"
-    },"scripts": {
-    "dev:client": "npm --prefix client run dev",
-    "dev:server": "npm --prefix server run dev",
-    "start:client": "npm --prefix client start",
-    "start:server": "npm --prefix server start",
-    "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
-    "start": "npm run dev",
-    "build": "npm run build:client",
-    "build:client": "npm --prefix client run build",
-    "build:server": "echo \"No server build step yet.\""
     },
-    
+    "scripts": {
+        "dev:client": "npm --prefix client run dev",
+        "dev:server": "npm --prefix server run dev",
+        "start:client": "npm --prefix client start",
+        "start:server": "npm --prefix server start",
+        "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
+        "start": "npm run dev",
+        "build": "npm run build:client",
+        "build:client": "npm --prefix client run build",
+        "build:server": "echo \"No server build step yet.\""
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/Ajthompson88/BibleApp.git"
@@ -29,7 +29,12 @@
     },
     "homepage": "https://github.com/Ajthompson88/BibleApp#readme",
     "devDependencies": {
-        "concurrently": "^9.1.2"
+        "@types/express": "^5.0.3",
+        "@types/mongoose": "^5.11.96",
+        "@types/node": "^24.0.7",
+        "concurrently": "^9.1.2",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.8.3"
     },
     "dependencies": {
         "autoprefixer": "^10.4.21",
