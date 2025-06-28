@@ -6,6 +6,9 @@ import mongoose from 'mongoose';
 import bibleRoutes from './routes/bible.js';
 import questionRoutes from './routes/questions.js';
 import verseRoutes from './routes/verse.js';
+import readingPlanRoutes from './routes/readingPlans.js';
+
+
 
 dotenv.config();
 
@@ -27,7 +30,7 @@ mongoose.connect(uri)
 
 app.use(cors());
 app.use(express.json());
-
+app.use('/api/reading-plans', readingPlanRoutes);
 app.get('/', (_req, res) => {
   res.send('📖 AdonAI API is running 🚀');
 });
