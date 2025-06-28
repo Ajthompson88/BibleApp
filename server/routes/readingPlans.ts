@@ -11,7 +11,7 @@ const defaultPlan = [
 ];
 
 // GET /api/reading-plans/:userId
-router.get('/:userId', async (req: Request, res: Response) => {
+router.get('/', async (req: Request, res: Response) => {
   const { userId } = req.params;
 
   try {

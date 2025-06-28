@@ -13,7 +13,8 @@ if (!DBL_API_KEY) {
   throw new Error('❌ Missing DBL_API_KEY in environment variables');
 }
 
-router.get('/:bibleId/:reference', async (req: Request, res: Response) => {
+router.get('/:bibleId/:reference', async (req: Request, res: Response): Promise<void> => {
+
   const { bibleId, reference } = req.params;
 
   try {
