@@ -1,10 +1,8 @@
+# Root .gitignore
+**/node_modules/
+**/dist/
+**/.env
+
 settings.json
-
-node_modules/
-dist/
-
 docs/
-
 tailwindInfo/
-
-.env

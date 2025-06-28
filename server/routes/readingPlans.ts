@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import ReadingPlan from '../models/ReadingPlan.ts';
+import ReadingPlan from '../models/ReadingPlan.js';
 
 const router = express.Router();
 

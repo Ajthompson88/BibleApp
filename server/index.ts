@@ -3,10 +3,11 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 
-import bibleRoutes from './routes/bible.ts';
-import questionRoutes from './routes/questions.ts';
-import verseRoutes from './routes/verse.ts';
-import readingPlanRoutes from './routes/readingPlans.ts';
+import bibleRoutes from './routes/bible.js';
+import questionRoutes from './routes/questions.js';
+import verseRoutes from './routes/verse.js';
+import readingPlanRoutes from './routes/readingPlans.js';
+
 
 dotenv.config();
 
