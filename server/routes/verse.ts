@@ -1,51 +1,51 @@
-import express from 'express';
-import axios from 'axios';
+import express, { Request, Response } from 'express';
+import axios, { AxiosError } from 'axios';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
 const router = express.Router();
-const BASE_URL = process.env.BASE_URL || 'https://api.scripture.api.bible/v1';
+const BASE_URL = 'https://api.scripture.api.bible/v1';
 
-interface Bible {
-  abbreviation: string;
-  name: string;
-  language?: {
-    name?: string;
-  };
+// ✅ Add this environment check
+const DBL_API_KEY = process.env.DBL_API_KEY;
+if (!DBL_API_KEY) {
+  throw new Error('❌ Missing DBL_API_KEY in environment variables');
 }
 
-router.get('/', async (_req, res) => {
+router.get('/:bibleId/:reference', async (req: Request, res: Response) => {
+  const { bibleId, reference } = req.params;
+
   try {
-    const response = await axios.get(`${BASE_URL}/bibles`, {
-      headers: {
-        'api-key': process.env.DBL_API_KEY || '',
-      },
-    });
-
-    const allBibles: Bible[] = response.data.data;
-
-    const validBibles = allBibles.filter(
-      (b: Bible) => b.language?.name && b.abbreviation && b.name
+    const searchResponse = await axios.get(
+      `${BASE_URL}/bibles/${bibleId}/search`,
+      {
+        params: { query: reference, limit: 1 },
+        headers: {
+          'api-key': DBL_API_KEY, // ✅ use the checked variable
+        },
+      }
     );
 
-    validBibles.sort((a, b) => {
-      const aLang = a.language?.name?.toLowerCase() || '';
-      const bLang = b.language?.name?.toLowerCase() || '';
-      if (aLang === 'english' && bLang !== 'english') return -1;
-      if (bLang === 'english' && aLang !== 'english') return 1;
-      return aLang.localeCompare(bLang);
-    });
+    const passage = searchResponse.data?.data?.passages?.[0];
 
-    console.log(`✅ Sorted bibles count: ${validBibles.length}`);
-    res.status(200).json(validBibles);
-  } catch (err) {
-    if (err instanceof Error) {
-      console.error('❌ Failed to fetch bibles:', err.message);
-    } else {
-      console.error('❌ Unknown error fetching bibles:', err);
+    if (!passage) {
+      return res.status(404).json({ error: 'Verse not found in search results.' });
     }
-    res.status(500).json({ error: 'Failed to fetch Bible list' });
+
+    res.status(200).json({
+      reference: passage.reference || reference,
+      text: passage.content || 'No verse content available.',
+    });
+  } catch (error) {
+    const err = error as AxiosError;
+
+    const message = (err.response?.data as { message?: string })?.message || 'Unknown error';
+
+    res.status(err.response?.status || 500).json({
+      error: 'Verse lookup failed',
+      message,
+    });
   }
 });
 
